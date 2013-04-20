@@ -1,0 +1,11 @@
+name: oauth2
+author: "Dart Team <misc@dartlang.org>"
+homepage: http://www.dartlang.org
+description: >
+  A client library for authenticating with a remote service via OAuth2 on
+  behalf of a user, and making authorized HTTP requests with the user's
+  OAuth2 credentials.
+dependencies:
+  http: any
+dev_dependencies:
+  unittest: any

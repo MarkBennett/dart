@@ -1,0 +1,168 @@
+// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+// WARNING: Do not edit - generated code.
+
+part of $LIBRARYNAME;
+
+$(ANNOTATIONS)class $CLASSNAME$EXTENDS$IMPLEMENTS$NATIVESPEC {
+$!MEMBERS
+
+$if DART2JS
+  @DomName('Document.body')
+  BodyElement body;
+$else
+  @DomName('Document.body')
+  BodyElement get body => $dom_body;
+
+  @DomName('Document.body')
+  void set body(BodyElement value) {
+    $dom_body = value;
+  }
+$endif
+
+  @DomName('Document.caretRangeFromPoint')
+  Range caretRangeFromPoint(int x, int y) {
+    return $dom_caretRangeFromPoint(x, y);
+  }
+
+  @DomName('Document.elementFromPoint')
+  Element elementFromPoint(int x, int y) {
+    return $dom_elementFromPoint(x, y);
+  }
+
+  /**
+   * Checks if the getCssCanvasContext API is supported on the current platform.
+   *
+   * See also:
+   *
+   * * [getCssCanvasContext]
+   */
+$if DART2JS
+  static bool get supportsCssCanvasContext =>
+      JS('bool', '!!(document.getCSSCanvasContext)');
+$else
+  static bool get supportsCssCanvasContext => true;
+$endif
+
+
+  /**
+   * Gets a CanvasRenderingContext which can be used as the CSS background of an
+   * element.
+   *
+   * CSS:
+   *
+   *     background: -webkit-canvas(backgroundCanvas)
+   *
+   * Generate the canvas:
+   *
+   *     var context = document.getCssCanvasContext('2d', 'backgroundCanvas',
+   *         100, 100);
+   *     context.fillStyle = 'red';
+   *     context.fillRect(0, 0, 100, 100);
+   *
+   * See also:
+   *
+   * * [supportsCssCanvasContext]
+   * * [CanvasElement.getContext]
+   */
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  @DomName('Document.getCSSCanvasContext')
+  CanvasRenderingContext getCssCanvasContext(String contextId, String name,
+      int width, int height) {
+    return $dom_getCssCanvasContext(contextId, name, width, height);
+  }
+
+  @DomName('Document.head')
+  HeadElement get head => $dom_head;
+
+  @DomName('Document.lastModified')
+  String get lastModified => $dom_lastModified;
+
+  @DomName('Document.preferredStylesheetSet')
+  String get preferredStylesheetSet => $dom_preferredStylesheetSet;
+
+  @DomName('Document.referrer')
+  String get referrer => $dom_referrer;
+
+  @DomName('Document.selectedStylesheetSet')
+  String get selectedStylesheetSet => $dom_selectedStylesheetSet;
+  void set selectedStylesheetSet(String value) {
+    $dom_selectedStylesheetSet = value;
+  }
+
+  @DomName('Document.styleSheets')
+  List<StyleSheet> get styleSheets => $dom_styleSheets;
+
+  @DomName('Document.title')
+  String get title => $dom_title;
+
+  @DomName('Document.title')
+  void set title(String value) {
+    $dom_title = value;
+  }
+
+  @DomName('Document.webkitCancelFullScreen')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  void cancelFullScreen() {
+    $dom_webkitCancelFullScreen();
+  }
+
+  @DomName('Document.webkitExitFullscreen')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  void exitFullscreen() {
+    $dom_webkitExitFullscreen();
+  }
+
+  @DomName('Document.webkitExitPointerLock')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  void exitPointerLock() {
+    $dom_webkitExitPointerLock();
+  }
+
+  @DomName('Document.webkitFullscreenElement')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  Element get fullscreenElement => $dom_webkitFullscreenElement;
+
+  @DomName('Document.webkitFullscreenEnabled')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  bool get fullscreenEnabled => $dom_webkitFullscreenEnabled;
+
+  @DomName('Document.webkitHidden')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  bool get hidden => $dom_webkitHidden;
+
+  @DomName('Document.webkitIsFullScreen')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  bool get isFullScreen => $dom_webkitIsFullScreen;
+
+  @DomName('Document.webkitPointerLockElement')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  Element get pointerLockElement =>
+      $dom_webkitPointerLockElement;
+
+  @DomName('Document.webkitVisibilityState')
+  @SupportedBrowser(SupportedBrowser.CHROME)
+  @SupportedBrowser(SupportedBrowser.SAFARI)
+  @Experimental
+  String get visibilityState => $dom_webkitVisibilityState;
+}

@@ -1,0 +1,6 @@
+/tmp
+/tmp.tmp
+/postporcess.config
+/*.pyc
+/changelog.html
+/generated

@@ -1,0 +1,40 @@
+// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+// WARNING: Do not edit - generated code.
+
+#ifndef Dart$(INTERFACE)_h
+#define Dart$(INTERFACE)_h
+
+#include "DartDOMWrapper.h"
+$WEBCORE_INCLUDES
+#include <dart_api.h>
+
+namespace WebCore {
+
+struct Dart$INTERFACE {
+    static const char* const dartImplementationClassName;
+    static const char* const dartImplementationLibraryName;
+    typedef $WEBCORE_CLASS_NAME NativeType;
+    static const bool isNode = $IS_NODE;
+    static const bool isActive = $IS_ACTIVE;
+    static const bool isEventTarget = $IS_EVENT_TARGET;
+
+$TO_NATIVE
+$TO_DART
+    static Dart_Handle toDart(PassRefPtr< $WEBCORE_CLASS_NAME > value)
+    {
+        return toDart(value.get());
+    }
+
+    static Dart_NativeFunction resolver(Dart_Handle name, int argumentCount);
+};
+
+namespace Dart$(INTERFACE)Internal {
+$DECLARATIONS
+}
+
+}
+
+#endif // Dart$(INTERFACE)_h

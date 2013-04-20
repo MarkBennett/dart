@@ -1,0 +1,366 @@
+# Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+[ $compiler == dart2js || $compiler == dart2dart ]
+class_literal_test/01: Fail # Class literals are expression now; delete this test.
+class_literal_test/02: Fail # Class literals are expression now; delete this test.
+class_literal_test/05: Fail # Class literals are expression now; delete this test.
+class_literal_test/06: Fail # Class literals are expression now; delete this test.
+class_literal_test/07: Fail # Class literals are expression now; delete this test.
+class_literal_test/10: Fail # Class literals are expression now; delete this test.
+class_literal_test/11: Fail # Class literals are expression now; delete this test.
+class_literal_test/12: Fail # Class literals are expression now; delete this test.
+class_literal_test/13: Fail # Class literals are expression now; delete this test.
+class_literal_test/14: Fail # Class literals are expression now; delete this test.
+class_literal_test/17: Fail # Class literals are expression now; delete this test.
+class_literal_test/18: Fail # Class literals are expression now; delete this test.
+class_literal_test/19: Fail # Class literals are expression now; delete this test.
+class_literal_test/20: Fail # Class literals are expression now; delete this test.
+class_literal_test/21: Fail # Class literals are expression now; delete this test.
+class_literal_test/22: Fail # Class literals are expression now; delete this test.
+class_literal_test/23: Fail # Class literals are expression now; delete this test.
+class_literal_test/24: Fail # Class literals are expression now; delete this test.
+class_literal_test/25: Fail # Class literals are expression now; delete this test.
+class_literal_test/26: Fail # Class literals are expression now; delete this test.
+class_literal_test/27: Fail # Class literals are expression now; delete this test.
+class_literal_test/28: Fail # Class literals are expression now; delete this test.
+class_literal_test/29: Fail # Class literals are expression now; delete this test.
+
+# Fails due to inlining. Not all expected frames are in the trace.
+full_stacktrace1_test: Pass, Fail  # issue 9895
+full_stacktrace2_test: Pass, Fail  # issue 9895
+full_stacktrace3_test: Pass, Fail  # issue 9895
+# Stack traces may or may not end in a newline depending on the JS enging.
+stacktrace_test: Pass, Fail # Assumes stack trace string ends in newline.
+
+# VM specific tests that should not be run by dart2js.
+*vm_test: Skip
+*vm_negative_test: Skip
+
+[ $compiler == dart2js && $checked ]
+mixin_type_parameters_super_extends_test: Fail # http://dartbug.com/8116
+mixin_type_parameters_super_test: Fail # http://dartbug.com/8116
+mixin_type_parameters_mixin_extends_test: Fail # http://dartbug.com/8116
+mixin_type_parameters_mixin_test: Fail # http://dartbug.com/8116
+
+
+prefix16_test: Fail # dartbug.com/7354
+default_factory2_test/01: Pass # For the wrong reasons.
+type_variable_scope_test/none: Fail
+factory_implementation_test/00: Fail
+redirecting_factory_infinite_steps_test/01: Fail
+type_variable_bounds_test/01: Fail
+type_variable_bounds_test/02: Fail
+type_variable_bounds_test/04: Fail
+type_variable_bounds_test/05: Fail
+type_variable_bounds2_test/00: Fail
+type_variable_bounds2_test/03: Fail
+type_variable_bounds2_test/05: Fail
+type_variable_bounds2_test/06: Pass # For the wrong reasons.
+type_variable_bounds3_test/00: Fail
+f_bounded_quantification_test/01: Fail
+f_bounded_quantification_test/02: Fail
+closure_type_test: Fail # does not detect type error in checked mode.
+factory1_test/00: Fail
+factory1_test/01: Fail
+type_annotation_test/09: Fail # Named constructors interpreted as a type.
+prefix15_test: Fail # Issue 5022
+local_function2_test: Fail # Issue 5022
+number_identity_test: Fail # Issue 9249
+
+[ $compiler == dart2js && $unchecked ]
+default_factory2_test/01: Fail # type arguments on redirecting factory not implemented
+type_variable_scope_test: Fail # type arguments on redirecting factory not implemented
+assertion_test: Fail
+type_variable_bounds_test/07: Fail # Wrongly reports compile-time error.
+factory_redirection_test/08: Fail
+factory_redirection_test/09: Fail
+factory_redirection_test/10: Fail
+factory_redirection_test/11: Fail
+factory_redirection_test/12: Fail
+factory_redirection_test/13: Fail
+factory_redirection_test/14: Fail
+
+double_to_string_as_exponential2_test: Fail # toStringAsExponential doesn't check if argument is an integer.
+double_to_string_as_fixed2_test: Fail # toStringAsFixed doesn't check if argument is an integer.
+double_to_string_as_precision2_test: Fail # toStringAsPrecision doesn't check if argument is an integer.
+
+# Only checked mode reports an error on type assignment
+# problems in compile time constants.
+compile_time_constant_checked_test/02: Fail, OK
+compile_time_constant_checked2_test/01: Fail, OK
+compile_time_constant_checked2_test/02: Fail, OK
+compile_time_constant_checked2_test/03: Fail, OK
+compile_time_constant_checked2_test/04: Fail, OK
+compile_time_constant_checked2_test/05: Fail, OK
+compile_time_constant_checked2_test/06: Fail, OK
+compile_time_constant_checked3_test/01: Fail, OK
+compile_time_constant_checked3_test/02: Fail, OK
+compile_time_constant_checked3_test/03: Fail, OK
+compile_time_constant_checked3_test/04: Fail, OK
+compile_time_constant_checked3_test/05: Fail, OK
+compile_time_constant_checked3_test/06: Fail, OK
+
+[ $compiler == dart2js ]
+branch_canonicalization_test: Fail # Issue 638.
+div_with_power_of_two_test: Fail # Issue 8301.
+class_literal_test: Fail # Issue 7626.
+identical_closure2_test: Fail # Issues 563, 1533
+invocation_mirror_test: Fail
+built_in_identifier_prefix_test: Fail # http://dartbug.com/6972
+number_identity2_test: Fail # Issue 563: identity of NaN
+new_expression_type_args_test/00: Fail # Wrongly reports compile-time error.
+new_expression_type_args_test/01: Fail # Wrongly reports compile-time error.
+double_int_to_string_test: Fail # Issue 1533 (double/integer distinction)
+mint_arithmetic_test: Fail # Issue 1533 (big integer arithmetic).
+left_shift_test: Fail # Issue 1533
+factory_redirection_test/01: Fail
+factory_redirection_test/05: Fail
+factory_redirection_test/07: Fail
+final_variable_assignment_test/01: Fail
+final_variable_assignment_test/02: Fail
+final_variable_assignment_test/03: Fail
+final_variable_assignment_test/04: Fail
+bad_override_test/01: Fail
+bad_override_test/02: Fail
+bad_constructor_test/04: Fail # http://dartbug.com/5519
+bad_constructor_test/05: Fail # http://dartbug.com/5519
+bad_constructor_test/06: Fail # http://dartbug.com/5519
+call_nonexistent_constructor_test: Fail
+constructor_named_arguments_test/01: Fail # http://dartbug.com/5519
+getter_no_setter_test/01: Fail # http://dartbug.com/5519
+isnot_malformed_type_test/01: Fail # http://dartbug.com/5519
+not_enough_positional_arguments_test/01: Fail # http://dartbug.com/5519
+
+constructor_negative_test: Pass # Wrong reason: the expression 'C()' is valid with class literals.
+
+throw_expr_test: Fail
+rethrow_test: Fail
+metadata_test: Fail # Metadata on type parameters not supported.
+infinity_test: Fail # Issue 4984
+positive_bit_operations_test: Fail # (floitsch): This will be fixed when dart2js uses unsigned input for >>.
+
+compile_time_constant8_test: Fail # We don't take the generic type into account yet.
+canonical_const_test: Fail # We don't take the generic type into account yet.
+
+# Support for optional parameters not conform to latest spec.
+typedef_is_test: Fail # http://dartbug.com/9058
+function_type_alias_test: Fail # http://dartbug.com/9058
+function_type_alias2_test: Fail
+named_parameters_type_test: Fail
+positional_parameters_type_test: Fail
+
+# Compilation errors.
+default_factory3_test: Fail # type arguments on redirecting factory not implemented
+non_parameterized_factory_test: Fail # type arguments on redirecting factory not implemented
+non_parameterized_factory2_test: Fail # type arguments on redirecting factory not implemented
+const_var_test: Fail # Map literals take 2 type arguments.
+map_literal3_test: Fail # Map literals take 2 type arguments.
+ct_const_test: Fail # We don't take the generic type into account yet.
+dynamic_test: Fail # cannot resolve type F1
+constructor_redirect2_test/03: Fail # redirecting ctor with initializing formal
+factory2_test: Fail # internal error: visitIs for type variables not implemented
+factory3_test: Fail # internal error: visitIs for type variables not implemented
+factory5_test: Fail # internal error: visitIs for type variables not implemented
+function_type_alias2_test: Fail # cannot resolve type f1
+function_type_alias3_test: Fail # cannot resolve type F
+function_type_alias4_test: Fail # cannot resolve type F
+function_type_alias5_test/00: Fail # visitIs for typedefs not implemented
+function_type_alias5_test/01: Fail # visitIs for typedefs not implemented
+function_type_alias5_test/02: Fail # visitIs for typedefs not implemented
+function_type_alias7_test/00: Fail # wrongly accepts default values in typedef
+function_type_alias_test: Fail # cannot resolve type Fun
+generic_test: Fail # cannot resolve type T
+get_set_syntax_test/00: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/01: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/02: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/03: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/04: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/05: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/06: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/07: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/08: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/13: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/14: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/15: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+get_set_syntax_test/16: Fail # Fixed by https://chromiumcodereview.appspot.com/10915111
+implicit_scope_test: Fail # duplicate definition of a="bar"
+method_binding_test: Fail # internal error: super property read not implemented.
+method_override_test: Fail # cannot resolve type GetKeysFunctionType
+method_override2_test/00: Fail # accepts illegal override
+method_override2_test/01: Fail # accepts illegal override
+method_override2_test/02: Fail # accepts illegal override
+method_override2_test/03: Fail # accepts illegal override
+abstract_getter_test/01: Fail # instantiation of abstract class
+abstract_factory_constructor_test/01: Fail # instantiation of abstract class
+parameter_initializer6_negative_test: Fail # Issue 3502
+named_parameters_aggregated_test/01: Fail # Presence of default values for optional params is not properly validated in type definitions.
+named_parameters_aggregated_test/03: Fail # Presence of default values for optional params is not properly validated in closure types.
+named_parameters_aggregated_test/05: Fail # Absence of positional parameters before named parameters does not trigger static type warning.
+pseudo_kw_test: Fail # Unexpected token '('
+super_implicit_closure_test: Fail # internal error: super property read not implemented
+switch_label_test: Fail # error: target of continue is not a loop or switch case
+on_catch_malformed_type_test: Fail # Malformed types cause compile-time errors.
+
+# Missing compilation error for wrong number of type arguments.
+mixin_type_parameters_errors_test/01: Fail
+mixin_type_parameters_errors_test/02: Fail
+mixin_type_parameters_errors_test/05: Fail
+
+# new with wrong number of type arguments should be a runtime error.
+mixin_type_parameters_errors_test/03: Fail
+mixin_type_parameters_errors_test/04: Fail
+
+# External tests.
+external_test/01: Fail
+external_test/02: Fail
+external_test/11: Fail
+external_test/12: Fail
+external_test/13: Skip  # Runtime error (missing patch).
+external_test/14: Fail
+external_test/15: Fail
+external_test/20: Skip  # Runtime error (missing patch).
+external_test/21: Fail
+external_test/22: Fail
+external_test/23: Fail
+external_test/30: Fail
+external_test/31: Fail
+
+
+# Implementation errors (library or generated code).
+instanceof3_test: Fail # cannot resolve type UndeclaredType.
+instanceof4_test: Fail # Expect.isTrue(false) fails.
+list_literal4_test: Fail # Illegal argument(s): 0 -- checked mode test.
+map_literal4_test: Fail # Attempt to modify an immutable object -- checked mode test.
+named_parameters_type_test: Fail # Expect.equals(expected: <111>, actual: <0>) fails. -- checked mode test.
+type_checks_in_factory_method_test: Fail # Expect.equals(expected: <true>, actual: <false>) fails. -- checked mode test.
+type_dartc_test: Fail # Expect.equals(expected: <1>, actual: <0>) -- checked mode test.
+
+class_cycle_negative_test: Fail, OK # Bad test: assumes eager loading.
+external_test/16: Fail, OK # Bad test: assumes eager loading.
+field1_negative_test: Fail, OK # Bad test: assumes eager loading.
+field6_negative_test: Fail, OK # Bad test: assumes eager loading.
+interface_cycle_negative_test: Fail, OK # Bad test: assumes eager loading.
+syntax_test/47: Fail, OK # Bad test: assumes eager loading.
+
+
+#
+# The following tests are all negative tests that should be fixed.
+#
+abstract_static_negative_test: Fail # Negative language test.
+abstract_syntax_test/01: Fail # Negative language test.
+abstract_syntax_test/02: Fail # Negative language test.
+const_constructor_syntax_test/04: Fail # Negative language test.
+const_field_negative_test: Fail # Negative language test.
+const_init4_negative_test: Fail # Negative language test.
+const_init_negative_test: Fail # Negative language test.
+const_syntax_test/04: Fail # Negative language test.
+constructor2_negative_test: Fail # Negative language test.
+constructor_return_negative_test: Fail # Negative language test.
+constructor_return_with_arrow_negative_test: Fail # Negative language test.
+constructor_return_with_init_and_arrow_negative_test: Fail # Negative language test.
+constructor_return_with_init_negative_test: Fail # Negative language test.
+duplicate_implements_test/01: Fail # Negative language test.
+duplicate_implements_test/02: Fail # Negative language test.
+duplicate_implements_test/03: Fail # Negative language test.
+duplicate_implements_test/04: Fail # Negative language test.
+field2_negative_test: Fail # Negative language test.
+field3_negative_test: Fail # Negative language test.
+field4_negative_test: Fail # Negative language test.
+field5_negative_test: Fail # Negative language test.
+field6a_negative_test: Fail # Negative language test.
+final_for_in_variable_test/01: Fail # Negative language test
+instantiate_type_variable_negative_test: Pass  # For the wrong reason.
+interface_factory3_negative_test: Fail # Negative language test.
+interface_factory_constructor_negative_test: Fail # Negative language test.
+interface_static_method_negative_test: Fail # Negative language test.
+list_literal1_negative_test: Fail # Negative language test.
+list_literal2_negative_test: Fail # Negative language test.
+map_literal1_negative_test: Fail # Negative language test.
+map_literal2_negative_test: Fail # Negative language test.
+non_const_super_negative_test: Fail # Negative language test.
+number_identifier_negative_test: Fail # Negative language test.
+operator1_negative_test: Fail # Negative language test.
+prefix23_negative_test: Fail # Negative language test.
+pseudo_kw_illegal_test/03: Fail # Negative language test.
+pseudo_kw_illegal_test/14: Fail # Negative language test.
+scope_negative_test: Fail # Negative language test.
+static_final_field_negative_test: Fail # Negative language test.
+static_top_level_test/00: Fail # Negative language test.
+static_top_level_test/01: Fail # Negative language test.
+static_top_level_test/02: Fail # Negative language test.
+static_top_level_test/03: Fail # Negative language test.
+static_top_level_test/04: Fail # Negative language test.
+static_top_level_test/05: Fail # Negative language test.
+static_top_level_test/06: Fail # Negative language test.
+static_top_level_test/07: Fail # Negative language test.
+string_interpolation7_negative_test: Fail # Negative language test.
+throw7_negative_test: Fail # Negative language test.
+
+disable_privacy_test: Fail, OK # VM specific test.
+numbers_test: Fail, OK # (unintended?) VM specific test.
+
+final_syntax_test/01: Fail # Missing error for uninitialized final field.
+final_syntax_test/02: Fail # Missing error for uninitialized final field.
+final_syntax_test/03: Fail # Missing error for uninitialized final field.
+final_syntax_test/04: Fail # Missing error for uninitialized final field.
+const_syntax_test/01: Fail # Missing error for uninitialized final field.
+const_syntax_test/02: Fail # Missing error for uninitialized final field.
+const_syntax_test/03: Fail # Missing error for uninitialized final field.
+
+canonical_const2_test: Fail, OK # Dart2js only has doubles.
+
+bit_operations_test: Fail, OK # Tests bit operations outside the 32 bit range.
+# The following test will start to fail again once dart2js implements the
+# runtime semantics for numbers.
+# Should be: Fail, OK # Expects negative results of bit-operations.
+optimization_test: Fail, OK # Expects negative results of bit-operations.
+
+expect_test: Fail, OK # JavaScript canonicalizes all strings. This test assumes that string-concatenation returns a new string.
+
+# Partially implemented redirecting constructors makes this throw instead
+# of failing.
+const_factory_negative_test: Crash, Fail
+
+assign_top_method_test: Fail
+
+
+[ $compiler == dart2js && $runtime == none ]
+*: Fail, Pass # TODO(ahe): Triage these tests.
+
+
+[ $compiler == dart2js && ($runtime == ff || $runtime == jsshell || $runtime == ie9)]
+arithmetic_test: Fail # Issue 7881
+
+
+[ $compiler == dart2js && $runtime == ie9 ]
+double_to_string_as_exponential3_test: Fail
+double_to_string_as_fixed_test: Fail
+double_to_string_as_precision3_test: Fail
+expect_test: Fail
+factory3_test: Fail
+stack_overflow_test: Fail
+stack_overflow_stacktrace_test: Fail
+type_checks_in_factory_method_test: Fail
+
+
+[ $compiler == dart2js && $runtime == safari ]
+null_pointer_exception_test: Fail # Uncaught error: Instance of 'TypeError'
+string_interpolate_npe_test: Fail # Uncaught error: Instance of 'TypeError'
+arithmetic_test: Fail # Issue: 7414
+
+
+[ $runtime == opera ]
+null_access_error_test: Fail # Issue: 7413
+string_interpolate_null_test: Fail # Issue: 7413
+call_through_null_getter_test: Fail
+closure3_test: Fail
+execute_finally3_test: Fail
+method_invocation_test: Fail
+null_pointer_exception_test: Fail
+stack_overflow_test: Fail
+stack_overflow_stacktrace_test: Fail
+string_interpolate_npe_test: Fail
+closure_call_wrong_argument_count_negative_test: Skip
+label_test: Skip

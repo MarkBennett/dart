@@ -1,0 +1,130 @@
+# Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+package/invalid_uri_test: Fail, OK # Fails intentionally
+
+[ $runtime == vm ]
+io/test_runner_test: Fail # Fails because checked-in dart executable is not up to date.
+io/skipping_dart2js_compilations_test: Fail # Fails because checked-in dart executable is not up to date.
+
+[ $runtime == vm && ( $system == windows ) ]
+io/raw_socket_test: Pass, Fail # Issue 8901
+
+[ $runtime == vm ]
+package/package_isolate_test: Fail # http://dartbug.com/7520.
+io/raw_server_socket_cancel_test: Pass, Fail, Timeout # Issue 8675
+
+[ $runtime == vm && $checked ]
+# These tests have type errors on purpose.
+io/process_invalid_arguments_test: Fail, OK
+io/directory_invalid_arguments_test: Fail, OK
+io/file_invalid_arguments_test: Fail, OK
+io/socket_invalid_arguments_test: Fail, OK
+io/stdout_bad_argument_test: Fail, OK
+# These test have type errors on purpose and take very long to run in
+# checked mode with no benefit. Skip.
+io/file_fuzz_test: Skip
+io/directory_fuzz_test: Skip
+
+[ $runtime == vm && $system == macos ]
+# This test fails with "Too many open files" on the Mac OS buildbot.
+# This is expected as MacOS by default runs with a very low number
+# of allowed open files ('ulimit -n' says something like 256).
+io/socket_many_connections_test: Skip
+
+# These tests pass on MacOS 10.8.2 but fails on the buildbot machines
+# that are running an earlier version of MacOS. The issue is that the
+# old version of MacOS does not expand the precomposed utf-8 it gets
+# from the VM before comparing it to the decomposed utf-8 used for the
+# file system.
+io/file_non_ascii_sync_test: Pass, Fail
+io/file_non_ascii_test: Pass, Fail
+io/directory_non_ascii_sync_test: Pass, Fail
+io/directory_non_ascii_test: Pass, Fail
+io/process_non_ascii_test: Pass, Fail
+
+[ $runtime == vm && $system == windows ]
+io/file_system_links_test: Skip  # No links on Windows.
+io/file_read_special_device_test: Skip  # No special unix devices on Windows.
+
+[ $compiler == none && $runtime == drt ]
+typed_data_isolate_test: Skip # This test uses dart:io
+io/*: Skip # Don't run tests using dart:io in the browser
+crypto/*: Skip # Don't run tests using dart:io in the browser
+package/*: Skip # Do not run those in Dartium.
+debugger/*: Skip # Do not run standalone debugger tests in browser.
+
+[ $compiler == dartc ]
+
+# package test issue 7392
+package/package1_test: Fail
+package/package_test: Fail
+
+
+# The dart:io library is created at build time from separate files, and
+# there is no language-spec compatible way to run unit tests on the private
+# members and methods of dart:io.
+# Dartc spots the misuse of 'part' directives in these unit tests.
+crypto/*: Skip  # dartc cannot parse dart:io unit tests.
+io/mime_multipart_parser_test: Skip  # dartc cannot parse dart:io unit tests.
+io/http_headers_test: Skip  # dartc cannot parse dart:io unit tests.
+io/http_date_test: Skip  # dartc cannot parse dart:io unit tests.
+io/url_encoding_test: Skip  # dartc cannot parse dart:io unit tests.
+io/http_parser_test: Skip  # dartc cannot parse dart:io unit tests.
+io/web_socket_protocol_processor_test: Skip  # dart:io unit test.
+
+io/process_exit_negative_test: Fail  # This is a compilation-time negative test.
+
+[ $compiler == dart2js ]
+number_identity_test: Skip # Bigints and int/double diff. not supported.
+typed_data_test: Skip # dart:typeddata support needed.
+bytedata_test: Skip # dart:typeddata support needed.
+typed_data_view_test: Skip # dart:typeddata support needed.
+typed_data_isolate_test: Skip # dart:typeddata support needed.
+typed_array_test: Skip # dart:typeddata support needed.
+float_array_test: Skip # dart:typeddata support needed.
+int_array_test: Skip  # dart:typeddata support needed.
+byte_array_view_optimized_test: Skip # dart:typeddata support needed.
+io/web_socket_protocol_processor_test: Skip  # Importing code with external keyword
+int_array_load_elimination_test: Skip  # This is a VM test
+medium_integer_test: Fail, OK # Test fails with JS number semantics: issue 1533.
+io/process_exit_negative_test: Fail, OK # relies on a static error that is a warning now.
+package/package_isolate_test: Skip # spawnUri does not work in dart2js. See issue 3051
+debugger/*: Skip # Do not run standalone vm debugger tests with dart2js.
+left_shift_bit_and_op_test: Skip # Integers exceed dart2js precision.
+
+[ $compiler == dart2js && $jscl ]
+assert_test: Fail, OK # Assumes unspecified fields on the AssertionError.
+byte_array_test: Fail, OK # ByteArray
+deoptimization_test: Fail, OK # Requires bigint.
+out_of_memory_test: Fail, OK # d8 handles much larger arrays than Dart VM.
+io/http_parser_test: Fail, OK # ByteArray
+io/options_test: Fail, OK # Cannot pass options to d8.
+
+[ $compiler == dart2js && $runtime == none ]
+io/options_test: Fail
+medium_integer_test: Pass # The test only fails at runtime, not at compilation.
+
+[ $compiler == dart2js && $browser ]
+*: Skip
+
+[ $compiler == dart2js && $checked ]
+io/http_read_test: Skip # Timeout TODO(ngeoffray): investigate
+io/list_input_stream_test: Skip # Timeout TODO(ngeoffray): investigate
+
+[ $compiler == dart2dart ]
+# Skip until we stabilize language tests.
+*: Skip
+
+[ $arch == arm ]
+*: Skip
+
+[ $arch == simarm ]
+*: Skip
+
+[ $arch == mips ]
+*: Skip
+
+[ $arch == simmips ]
+*: Skip

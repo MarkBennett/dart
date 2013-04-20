@@ -1,0 +1,100 @@
+# Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+reg_exp_unicode_2_test: Fail # Bug 6592
+
+[ $compiler == none ]
+unicode_test: Fail        # Bug 6706
+*dartc_test: Skip
+compare_to2_test: Fail    # Bug 4018
+
+symbol_test/01: Fail
+symbol_test/02: Fail
+symbol_test/03: Fail
+
+
+[ $runtime == ff || $runtime == ie9 || $runtime == jsshell ]
+unicode_test: Fail
+
+[ $runtime == ff || $runtime == ie9 || $runtime == jsshell || $runtime == safari ]
+double_round3_test: Fail, OK # Runtime rounds 0.49999999999999994 to 1.
+double_round_to_double2_test: Fail, OK # Runtime rounds 0.49999999999999994 to 1.
+
+[ $runtime == ie9 ]
+double_round4_test: Fail, OK # IE bug: Math.round(4503599627370497) != 4503599627370497.
+double_round_to_double3_test: Fail, OK # IE bug: Math.round(4503599627370497) != 4503599627370497.
+
+[ $compiler == dart2js && ($runtime == chrome || $runtime == drt || $runtime == d8 || $runtime == safari) ]
+string_trim_unicode_test: Fail  # V8 bug 2408
+
+[ $runtime == opera ]
+core_runtime_types_test: Fail
+null_nosuchmethod_test: Fail # Issue: 7413
+date_time7_test: Fail
+unicode_test: Fail
+
+[ $runtime == ie9 && ($system == linux || $system == macos) ]
+*: Skip
+
+[ $runtime == safari && ($system == linux || $system == windows) ]
+*: Skip
+
+[ $runtime == vm ]
+string_trim_unicode_test: Fail  # Bug 6569
+
+[ $compiler == dart2js ]
+math_parse_double_test: Fail # Expect.equals(expected: <78187493520>, actual: <0>)
+math_test: Fail # issue 3333
+surrogate_pair_toUpper_test: Fail # Issue 6707
+
+big_integer_vm_test: Fail, OK # VM specific test.
+compare_to2_test: Fail, OK    # Requires bigint support.
+string_base_vm_test: Fail, OK # VM specific test.
+
+string_replace_func_test: Skip # Bug 6554 - doesn't terminate.
+
+
+[ $compiler == dart2js && $runtime == none ]
+*: Fail, Pass # TODO(ahe): Triage these tests.
+
+[ $compiler == dart2js && $runtime == ie9 ]
+date_time7_test: Fail # BUG(3304): Maybe this doesn't time out?
+json_strict_test: Fail # IE parses slightly harmless no-standard JSON.
+string_base_vm_test: Fail # BUG(3304): Maybe this doesn't time out?
+
+[ $compiler == dart2dart ]
+compare_to2_test: Fail # inherited from VM
+unicode_test: Fail # inherited from VM
+
+
+# Library changes
+[ $compiler == none || $compiler == dart2js || $compiler == dart2dart ]
+map_keys2_test: Fail # Generic types aren't right.
+
+[ $compiler == dart2js ]
+map_values2_test: Fail # Generic types aren't right
+
+## Tests failing after merge of experimental library branch.
+[ $compiler == dart2js ]
+# Tests fail due to bug in generics on constants, issue 6827
+iterable_to_list_test: Fail
+iterable_to_set_test: Fail
+
+[ $compiler == dartc || $compiler == dartanalyzer ]
+symbol_test/01: Fail
+symbol_test/02: Fail
+symbol_test/03: Fail
+
+
+[ $arch == arm ]
+*: Skip
+
+[ $arch == simarm ]
+*: Skip
+
+[ $arch == mips ]
+*: Skip
+
+[ $arch == simmips ]
+*: Skip

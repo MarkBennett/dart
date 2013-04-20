@@ -1,0 +1,361 @@
+# Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+window_open_test: Skip # http://dartbug.com/5151
+async_window_test: Skip #TODO(gram): investigating
+
+event_test: Skip  # Issue 1996
+custom_elements_test: Skip # Not yet implemented.
+interactive_test: Skip # Must be run manually.
+
+[ $compiler == none && $runtime == drt && $system == windows ]
+worker_test/functional: Pass, Crash # Issue 9929.
+
+[ $compiler == dart2js]
+dom_isolates_test: Skip # Need to migrate to new spawnDomFunction.
+
+[ $compiler == dart2js && $runtime == ie10 ]
+indexeddb_3_test: Pass, Timeout, Slow # Issue: http://dartbug.com/9437
+indexeddb_4_test: Pass, Timeout, Slow # Issue: http://dartbug.com/9437
+async_test: Pass, Fail # timers test fails on ie10.
+
+[ $compiler == dart2js && $csp && $runtime == drt && $unchecked ]
+indexeddb_2_test: Fail, Crash, Pass # Bug in v8, http://dartbug.com/9407
+async_test: Fail, Crash, Pass # Bug in v8, http://dartbug.com/9407
+
+# Layout tests are only supported on DRT.
+[ $runtime == ie9 || $runtime == ie10 || $runtime == safari || $runtime == ff || $runtime == chrome || $runtime == opera ]
+*layout_test: Skip
+
+[ $runtime == chrome ]
+touchevent_test/supported: Fail
+
+[ $runtime == chrome && ($system == windows || $system == macos)]
+audiocontext_test: Skip # Issue 9566
+
+[$runtime == drt || $runtime == dartium || $runtime == chrome]
+webgl_1_test: Pass, Fail # Issue 8219
+
+[ $runtime == drt ]
+audiocontext_test: Skip # Issue 9322
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium) ]
+request_animation_frame_test: Skip   # drt hangs; requestAnimationFrame not implemented
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium) && $system == windows]
+websql_test: Skip # Issue 4941: stderr contains a backtrace.
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium) && $mode == debug]
+websql_test: Fail, Pass # Issue 4941: stderr contains a backtrace.
+
+[ $compiler == dart2js && $runtime == drt && $system == macos]
+audiobuffersourcenode_test: Pass, Fail
+
+[$runtime == ie10 ]
+dromaeo_smoke_test: Skip #TODO(efortuna): investigating.
+element_test/click: Fail                # IE does not support firing this event.
+history_test/history: Pass, Fail # issue 8183
+indexeddb_1_test/functional: Pass, Timeout # http://dartbug.com/9269
+isolates_test: Skip
+microtask_test: Fail, Pass # Appears to be flaky
+native_gc_test: Fail, Pass # BUG(7774): Untriaged.
+serialized_script_value_test: Fail
+storage_test: Fail, Pass
+transferables_test: Fail # Issue 9846
+websocket_test/websocket: Fail # TODO(efortuna): Issue 7875.
+window_open_test: Skip
+canvasrenderingcontext2d_test/drawImage_video_element: Fail # IE does not support drawImage w/ video element
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # IE does not support drawImage w/ video element
+worker_test/functional: Fail # IE uses incorrect security context for Blob URIs.
+
+# IE10 Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+audiobuffersourcenode_test/supported: Fail
+audiocontext_test/supported: Fail
+crypto_test/supported: Fail
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+element_types_test/supported_content: Fail
+element_types_test/supported_details: Fail
+element_types_test/supported_keygen: Fail
+element_types_test/supported_meter: Fail
+element_types_test/supported_output: Fail
+element_types_test/supported_shadow: Fail
+fileapi_test/supported: Fail
+history_test/supported_HashChangeEvent: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+input_element_test/supported_month: Fail
+input_element_test/supported_time: Fail
+input_element_test/supported_week: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+media_stream_test/supported_media: Fail
+mutationobserver_test/supported: Fail
+notifications_test/supported: Fail
+rtc_test/supported: Fail
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+svgelement_test/supported_altGlyph: Fail
+svgelement_test/supported_animate: Fail
+svgelement_test/supported_animateMotion: Fail
+svgelement_test/supported_animateTransform: Fail
+svgelement_test/supported_foreignObject: Fail
+svgelement_test/supported_set: Fail
+touchevent_test/supported: Fail
+webgl_1_test/supported: Fail
+websql_test/supported: Fail
+xhr_test/supported_HttpRequestProgressEvent: Fail
+xsltprocessor_test/supported: Fail
+
+[ $runtime == ie9 ]
+blob_constructor_test: Fail
+document_test/document: Pass, Fail # BUG(9654) need per-instance patching
+dom_constructors_test: Fail
+dromaeo_smoke_test: Skip #TODO(efortuna): investigating.
+element_test/click: Fail                # IE does not support firing this event.
+element_test/matches: Fail # IE9 does not support matches
+form_element_test: Fail # Issue 4793.
+isolates_test: Skip         # BUG(4016)
+localstorage_test: Fail
+microtask_test: Pass, Fail # http://dartbug.com/8300
+postmessage_structured_test: Skip   # BUG(5685): times out.
+serialized_script_value_test: Fail
+url_test: Fail              # IE9 does not support createObjectURL (it is supported in IE10)
+window_open_test: Skip      # BUG(4016)
+canvasrenderingcontext2d_test/drawImage_video_element: Fail # IE does not support drawImage w/ video element
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # IE does not support drawImage w/ video element
+
+# IE9 Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+audiobuffersourcenode_test/supported: Fail
+audiocontext_test/supported: Fail
+cache_test/supported: Fail
+crypto_test/supported: Fail
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+element_types_test/supported_content: Fail
+element_types_test/supported_datalist: Fail
+element_types_test/supported_details: Fail
+element_types_test/supported_keygen: Fail
+element_types_test/supported_meter: Fail
+element_types_test/supported_output: Fail
+element_types_test/supported_progress: Fail
+element_types_test/supported_shadow: Fail
+element_types_test/supported_track: Fail
+fileapi_test/supported: Fail
+form_data_test/supported: Fail
+history_test/supported_HashChangeEvent: Fail
+history_test/supported_state: Fail
+indexeddb_1_test/supported: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+input_element_test/supported_email: Fail
+input_element_test/supported_month: Fail
+input_element_test/supported_number: Fail
+input_element_test/supported_range: Fail
+input_element_test/supported_search: Fail
+input_element_test/supported_tel: Fail
+input_element_test/supported_time: Fail
+input_element_test/supported_url: Fail
+input_element_test/supported_week: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+media_stream_test/supported_media: Fail
+mutationobserver_test/supported: Fail
+notifications_test/supported: Fail
+rtc_test/supported: Fail
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+svg_test/supported_externalResourcesRequired: Fail
+svgelement_test/supported_altGlyph: Fail
+svgelement_test/supported_animate: Fail
+svgelement_test/supported_animateMotion: Fail
+svgelement_test/supported_animateTransform: Fail
+svgelement_test/supported_feBlend: Fail
+svgelement_test/supported_feColorMatrix: Fail
+svgelement_test/supported_feComponentTransfer: Fail
+svgelement_test/supported_feConvolveMatrix: Fail
+svgelement_test/supported_feDiffuseLighting: Fail
+svgelement_test/supported_feDisplacementMap: Fail
+svgelement_test/supported_feDistantLight: Fail
+svgelement_test/supported_feFlood: Fail
+svgelement_test/supported_feFuncA: Fail
+svgelement_test/supported_feFuncB: Fail
+svgelement_test/supported_feFuncG: Fail
+svgelement_test/supported_feFuncR: Fail
+svgelement_test/supported_feGaussianBlur: Fail
+svgelement_test/supported_feImage: Fail
+svgelement_test/supported_feMerge: Fail
+svgelement_test/supported_feMergeNode: Fail
+svgelement_test/supported_feOffset: Fail
+svgelement_test/supported_fePointLight: Fail
+svgelement_test/supported_feSpecularLighting: Fail
+svgelement_test/supported_feSpotLight: Fail
+svgelement_test/supported_feTile: Fail
+svgelement_test/supported_feTurbulence: Fail
+svgelement_test/supported_filter: Fail
+svgelement_test/supported_foreignObject: Fail
+svgelement_test/supported_set: Fail
+touchevent_test/supported: Fail
+transition_event_test/supported: Fail
+typed_arrays_1_test/supported: Fail
+webgl_1_test/supported: Fail
+websocket_test/supported: Fail
+websql_test/supported: Fail
+worker_test/supported: Fail
+xhr_cross_origin_test/supported: Fail
+xhr_test/supported_HttpRequestProgressEvent: Fail
+xhr_test/supported_onLoadEnd: Fail
+xhr_test/supported_onProgress: Fail
+xsltprocessor_test/supported: Fail
+
+[ $runtime == safari ]
+datalistelement_test: Fail # Issue: 7414
+element_test/elements: Crash, Fail # Issue: 7414
+element_types_test/supported_track: Pass, Fail
+input_element_test/supported_month: Fail, Crash
+input_element_test/supported_time: Fail, Crash
+input_element_test/supported_week: Fail, Crash
+webgl_1_test: Pass, Fail # Issue 8219
+wheelevent_test: Fail # Issue: 7414
+xhr_test/xhr_requestBlob: Fail # Issue: 9178 Safari doesn't support Blob responses.
+canvasrenderingcontext2d_test/drawImage_video_element: Fail # Safari does not support drawImage w/ video element
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # Safari does not support drawImage w/ video element
+
+# Safari Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+element_types_test/supported_content: Fail
+element_types_test/supported_datalist: Fail
+element_types_test/supported_shadow: Fail
+fileapi_test/supported: Fail
+indexeddb_1_test/supported: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+media_stream_test/supported_media: Fail
+notifications_test/supported: Fail
+performance_api_test/supported: Fail
+rtc_test/supported: Fail
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+touchevent_test/supported: Fail
+
+[ $runtime == opera ]
+blob_constructor_test: Fail
+canvas_test: Fail
+canvas_test: Pass,Fail
+canvas_using_html_test: Fail
+cssstyledeclaration_test: Fail
+document_test/document: Fail # Issue: 7413
+element_add_test: Fail
+element_constructor_1_test: Fail
+element_test/children: Fail # Issue: 7413
+element_test/constructors: Fail
+element_test/elements: Fail
+element_test/eventListening: Crash
+element_test/eventListening: Fail # Issue: 7413
+element_test/queryAll: Fail
+element_webkit_test: Fail
+fileapi_test: Skip # Timeout.
+form_data_test: Fail # Issue: 7413
+htmlelement_test: Fail
+isolates_test: Skip # Timeout.
+js_interop_3_test: Skip # Timeout.
+js_interop_4_test: Skip # Timeout.
+keyboard_event_test: Fail # Issue: 7413
+serialized_script_value_test: Fail
+typed_arrays_arraybuffer_test: Fail
+url_test: Fail
+
+# Opera Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+audiobuffersourcenode_test/supported: Fail
+audiocontext_test/supported: Fail
+crypto_test/supported: Fail
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+indexeddb_1_test/supported: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+mutationobserver_test/supported: Fail
+notifications_test/supported: Fail
+performance_api_test/supported: Fail
+speechrecognition_test/supported: Fail
+svg_test/supported_externalResourcesRequired: Fail
+svg_test/supported_langSpace: Fail
+websql_test/supported: Fail
+
+[ $runtime == ff ]
+dart_object_local_storage_test: Skip  # sessionStorage NS_ERROR_DOM_NOT_SUPPORTED_ERR
+dromaeo_smoke_test: Pass, Fail # Issue: 8257
+webgl_1_test: Pass, Fail   # Issue 8219
+postmessage_structured_test/typed_arrays: Fail # FF incorrectly clones arrays.
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # Firefox does not like dataUrl videos for drawImage
+
+# FireFox Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+audiobuffersourcenode_test/supported: Fail
+audiocontext_test/supported: Fail
+crypto_test/supported: Fail
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+element_types_test/supported_content: Fail
+element_types_test/supported_details: Fail
+element_types_test/supported_embed: Fail
+element_types_test/supported_keygen: Fail
+element_types_test/supported_object: Fail
+element_types_test/supported_shadow: Fail
+element_types_test/supported_track: Fail
+fileapi_test/supported: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+input_element_test/supported_month: Fail
+input_element_test/supported_number: Fail
+input_element_test/supported_range: Fail
+input_element_test/supported_time: Fail
+input_element_test/supported_week: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+notifications_test/supported: Fail
+rtc_test/supported: Fail # Release build does not enable by default.
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+svg_test/supported_externalResourcesRequired: Fail
+svg_test/supported_langSpace: Fail
+touchevent_test/supported: Fail
+websql_test/supported: Fail
+xhr_test/supported_HttpRequestProgressEvent: Fail
+
+[ $runtime == ie9 && ($system == linux || $system == macos) ]
+*: Skip
+
+[ $runtime == safari && ($system == linux || $system == windows) ]
+*: Skip
+
+# 'html' tests import the HTML library, so they only make sense in
+# a browser environment.
+[ $runtime == vm ]
+*: Skip
+
+[ $compiler == dart2js && ($runtime == drt || $runtime == ff) ]
+request_animation_frame_test: Skip # Async test hangs.
+
+[ $compiler == dart2js && ($runtime == drt || $runtime == chrome || $runtime == ff || $runtime == safari) ]
+isolates_test: Skip   # Timeout because leg does not support web workers.
+
+
+[ $compiler == dart2js && $runtime == drt && $unchecked ]
+#indexeddb_5_test/functional: Fail, Pass # http://dartbug.com/8851
+
+[ $compiler == dart2js && $csp && ($runtime == drt || $runtime == safari || $runtime == ff || $runtime == chrome) ]
+js_interop_1_test: Skip            # Test cannot run under CSP restrictions (times out).
+js_interop_2_test: Fail, OK        # Test cannot run under CSP restrictions.
+js_interop_3_test: Skip            # Test cannot run under CSP restrictions (times out).
+postmessage_structured_test: Skip  # Test cannot run under CSP restrictions (times out).
+shadow_dom_layout_test: Fail, OK   # Test cannot run under CSP restrictions.

@@ -1,0 +1,45 @@
+// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+// WARNING: Do not edit - generated code.
+
+part of $LIBRARYNAME;
+
+$(ANNOTATIONS)class $CLASSNAME$EXTENDS$IMPLEMENTS$NATIVESPEC {
+  // In JS, canBubble and cancelable are technically required parameters to
+  // init*Event. In practice, though, if they aren't provided they simply
+  // default to false (since that's Boolean(undefined)).
+  //
+  // Contrary to JS, we default canBubble and cancelable to true, since that's
+  // what people want most of the time anyway.
+  factory $CLASSNAME(String type,
+      {Window view, int detail: 0, bool canBubble: true,
+      bool cancelable: true}) {
+    if (view == null) {
+      view = window;
+    }
+    final e = document.$dom_createEvent("UIEvent");
+    e.$dom_initUIEvent(type, canBubble, cancelable, view, detail);
+    return e;
+  }
+$!MEMBERS
+
+  @deprecated
+  int get layerX => layer.x;
+  @deprecated
+  int get layerY => layer.y;
+
+  @deprecated
+  int get pageX => page.x;
+  @deprecated
+  int get pageY => page.y;
+
+  @DomName('UIEvent.layerX')
+  @DomName('UIEvent.layerY')
+  Point get layer => new Point($dom_layerX, $dom_layerY);
+
+  @DomName('UIEvent.pageX')
+  @DomName('UIEvent.pageY')
+  Point get page => new Point($dom_pageX, $dom_pageY);
+}

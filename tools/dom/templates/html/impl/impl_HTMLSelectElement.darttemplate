@@ -1,0 +1,26 @@
+// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+part of $LIBRARYNAME;
+
+$(ANNOTATIONS)class $CLASSNAME$EXTENDS$IMPLEMENTS$NATIVESPEC {
+$!MEMBERS
+
+  // Override default options, since IE returns SelectElement itself and it
+  // does not operate as a List.
+  List<OptionElement> get options {
+    var options = this.children.where((e) => e is OptionElement).toList();
+    return new UnmodifiableListView<OptionElement>(options);
+  }
+
+  List<OptionElement> get selectedOptions {
+    // IE does not change the selected flag for single-selection items.
+    if (this.multiple) {
+      var options = this.options.where((o) => o.selected).toList();
+      return new UnmodifiableListView<OptionElement>(options);
+    } else {
+      return [this.options[this.selectedIndex]];
+    }
+  }
+}

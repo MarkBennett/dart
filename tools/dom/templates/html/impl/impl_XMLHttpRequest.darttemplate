@@ -1,0 +1,167 @@
+// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+part of $LIBRARYNAME;
+
+/**
+ * A utility for retrieving data from a URL.
+ *
+ * HttpRequest can be used to obtain data from http, ftp, and file
+ * protocols.
+ *
+ * For example, suppose we're developing these API docs, and we
+ * wish to retrieve the HTML of the top-level page and print it out.
+ * The easiest way to do that would be:
+ *
+ *     HttpRequest.getString('http://api.dartlang.org').then((response) {
+ *       print(response);
+ *     });
+ *
+ * **Important**: With the default behavior of this class, your
+ * code making the request should be served from the same origin (domain name,
+ * port, and application layer protocol) as the URL you are trying to access
+ * with HttpRequest. However, there are ways to
+ * [get around this restriction](http://www.dartlang.org/articles/json-web-service/#note-on-jsonp).
+ *
+ * See also:
+ *
+ * * [Dart article on using HttpRequests](http://www.dartlang.org/articles/json-web-service/#getting-data)
+ * * [JS XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest)
+ * * [Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest/Using_XMLHttpRequest)
+ */
+$(ANNOTATIONS)class $CLASSNAME$EXTENDS$IMPLEMENTS$NATIVESPEC {
+
+  /**
+   * Creates a URL get request for the specified [url].
+   *
+   * The server response must be a `text/` mime type for this request to
+   * succeed.
+   *
+   * This is similar to [request] but specialized for HTTP GET requests which
+   * return text content.
+   *
+   * See also:
+   *
+   * * [request]
+   */
+  static Future<String> getString(String url,
+      {bool withCredentials, void onProgress(ProgressEvent e)}) {
+    return request(url, withCredentials: withCredentials,
+        onProgress: onProgress).then((xhr) => xhr.responseText);
+  }
+
+  /**
+   * Creates a URL request for the specified [url].
+   *
+   * By default this will do an HTTP GET request, this can be overridden with
+   * [method].
+   *
+   * The Future is completed when the response is available.
+   *
+   * The [withCredentials] parameter specified that credentials such as a cookie
+   * (already) set in the header or
+   * [authorization headers](http://tools.ietf.org/html/rfc1945#section-10.2)
+   * should be specified for the request. Details to keep in mind when using
+   * credentials:
+   *
+   * * Using credentials is only useful for cross-origin requests.
+   * * The `Access-Control-Allow-Origin` header of `url` cannot contain a wildcard (*).
+   * * The `Access-Control-Allow-Credentials` header of `url` must be set to true.
+   * * If `Access-Control-Expose-Headers` has not been set to true, only a subset of all the response headers will be returned when calling [getAllRequestHeaders].
+   *
+   * Note that requests for file:// URIs are only supported by Chrome extensions
+   * with appropriate permissions in their manifest. Requests to file:// URIs
+   * will also never fail- the Future will always complete successfully, even
+   * when the file cannot be found.
+   *
+   * See also: [authorization headers](http://en.wikipedia.org/wiki/Basic_access_authentication).
+   */
+  static Future<HttpRequest> request(String url,
+      {String method, bool withCredentials, String responseType, sendData,
+      void onProgress(ProgressEvent e)}) {
+    var completer = new Completer<HttpRequest>();
+
+    var xhr = new HttpRequest();
+    if (method == null) {
+      method = 'GET';
+    }
+    xhr.open(method, url, async: true);
+
+    if (withCredentials != null) {
+      xhr.withCredentials = withCredentials;
+    }
+
+    if (responseType != null) {
+      xhr.responseType = responseType;
+    }
+
+    if (onProgress != null) {
+      xhr.onProgress.listen(onProgress);
+    }
+
+    xhr.onLoad.listen((e) {
+      // Note: file:// URIs have status of 0.
+      if ((xhr.status >= 200 && xhr.status < 300) ||
+          xhr.status == 0 || xhr.status == 304) {
+        completer.complete(xhr);
+      } else {
+        completer.completeError(e);
+      }
+    });
+
+    xhr.onError.listen((e) {
+      completer.completeError(e);
+    });
+
+    if (sendData != null) {
+      xhr.send(sendData);
+    } else {
+      xhr.send();
+    }
+
+    return completer.future;
+  }
+
+  /**
+   * Checks to see if the Progress event is supported on the current platform.
+   */
+  static bool get supportsProgressEvent {
+$if DART2JS
+    var xhr = new HttpRequest();
+    return JS('bool', '("onprogress" in #)', xhr);
+$else
+    return true;
+$endif
+  }
+
+  /**
+   * Checks to see if the current platform supports making cross origin
+   * requests.
+   *
+   * Note that even if cross origin requests are supported, they still may fail
+   * if the destination server does not support CORS requests.
+   */
+  static bool get supportsCrossOrigin {
+$if DART2JS
+    var xhr = new HttpRequest();
+    return JS('bool', '("withCredentials" in #)', xhr);
+$else
+    return true;
+$endif
+  }
+
+  /**
+   * Checks to see if the LoadEnd event is supported on the current platform.
+   */
+  static bool get supportsLoadEndEvent {
+$if DART2JS
+    var xhr = new HttpRequest();
+    return JS('bool', '("onloadend" in #)', xhr);
+$else
+    return true;
+$endif
+  }
+
+$!MEMBERS
+}

@@ -1,0 +1,43 @@
+# Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+[ $compiler == dart2js ]
+class_test: Fail
+statements_test: Fail
+typed_locals_test: Fail
+no_such_method_test: Fail # Wrong Invocation.memberName.
+
+deferred_semantics_test/none: Fail # TODO(ahe): Multitest cannot use import.
+
+[ $runtime == ff || $jscl ]
+deferred/deferred_constant_test: Pass, Crash, Fail # Issue 9158
+deferred/deferred_class_test: Pass, Crash # Issue 9158
+
+[ $compiler == dart2js && $checked ]
+parameter_bailout_test: Fail, OK
+variable_type_test/03: Fail, OK
+variable_type_test/01: Fail, OK
+
+[ $compiler == dart2js && $mode == debug ]
+operator_test: Skip
+string_interpolation_test: Skip
+
+[ $compiler == dart2js && $runtime == ie9 ]
+class_test: Fail
+
+[ $compiler == dart2js && $runtime == none ]
+*: Fail, Pass # TODO(ahe): Triage these tests.
+
+[ $compiler == dart2js && $minified ]
+to_string_test: Fail # Issue 7179.
+runtime_type_test: Fail, OK # Tests extected output of Type.toString().
+
+# Mirrors do not work with minification.
+mirror_test: Fail  # Issue 6490.
+
+[ $jscl ]
+timer_test: Fail # Issue 7728.
+
+[ $runtime == none ]
+timer_negative_test: Fail, OK # A negative runtime test.
