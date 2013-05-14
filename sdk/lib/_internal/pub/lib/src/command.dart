@@ -11,6 +11,7 @@ import 'package:pathos/path.dart' as path;
 import 'command_cache.dart';
 import 'command_deploy.dart';
 import 'command_help.dart';
+import 'command_init.dart';
 import 'command_install.dart';
 import 'command_lish.dart';
 import 'command_update.dart';
@@ -32,6 +33,7 @@ abstract class PubCommand {
       'cache': new CacheCommand(),
       'deploy': new DeployCommand(),
       'help': new HelpCommand(),
+      'init': new InitCommand(),
       'install': new InstallCommand(),
       'publish': new LishCommand(),
       'update': new UpdateCommand(),
